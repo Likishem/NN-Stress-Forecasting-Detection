@@ -1,4 +1,5 @@
 # app/main.py
+from fastapi import FastAPI
 import os
 import json
 from typing import List

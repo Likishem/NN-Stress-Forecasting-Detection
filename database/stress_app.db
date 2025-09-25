@@ -1,3 +1,11 @@
+
+import os
+from sqlalchemy import create_engine, Column, Integer, Float, String, DateTime, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from datetime import datetime
+from cryptography.fernet import Fernet
+
 -- Create a new database
 CREATE DATABASE my_app_db;
 
@@ -11,13 +19,6 @@ CREATE TABLE users (
     email VARCHAR(100) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-import os
-from sqlalchemy import create_engine, Column, Integer, Float, String, DateTime, Text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
-from cryptography.fernet import Fernet
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./app.db")
 FERNET_KEY = os.environ.get("FERNET_KEY")  # must be set in env for encryption
