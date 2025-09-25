@@ -1,0 +1,56 @@
+-- Create a new database
+CREATE DATABASE my_app_db;
+
+-- Use that database
+USE my_app_db;
+
+-- Create a sample table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+import os
+from sqlalchemy import create_engine, Column, Integer, Float, String, DateTime, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from datetime import datetime
+from cryptography.fernet import Fernet
+
+DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./app.db")
+FERNET_KEY = os.environ.get("FERNET_KEY")  # must be set in env for encryption
+
+if not FERNET_KEY:
+    # For dev only: generate a key (in production, provide one)
+    FERNET_KEY = Fernet.generate_key().decode()
+    print("No FERNET_KEY provided: generated temporary key (do not use in prod)")
+
+fernet = Fernet(FERNET_KEY.encode())
+
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+Base = declarative_base()
+
+class RawData(Base):
+    __tablename__ = "raw_data"
+    id = Column(Integer, primary_key=True, index=True)
+    encrypted_payload = Column(Text, nullable=False)  # store encrypted JSON
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class UserHistory(Base):
+    __tablename__ = "user_history"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String(64), index=True)
+    encrypted_event = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+def encrypt_bytes(plaintext: bytes) -> bytes:
+    return fernet.encrypt(plaintext)
+
+def decrypt_bytes(ciphertext: bytes) -> bytes:
+    return fernet.decrypt(ciphertext)
+
+def init_db():
+    Base.metadata.create_all(bind=engine)

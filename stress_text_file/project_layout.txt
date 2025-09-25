@@ -1,0 +1,14 @@
+stress-forecast-api/
+├─ app/
+│  ├─ main.py
+│  ├─ models.py
+│  ├─ db.py
+│  ├─ recommender.py
+│  ├─ stream_simulator.py
+│  └─ requirements.txt
+├─ train_model.py
+├─ Dockerfile
+├─ docker-compose.yml
+├─ requirements.txt
+└─ .github/
+   └─ workflows/ci.yml

@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pydantic
+sqlalchemy
+alembic
+cryptography
+joblib
+scikit-learn
+apscheduler
+python-multipart
+httpx
+websockets
