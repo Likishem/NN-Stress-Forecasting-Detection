@@ -5,6 +5,8 @@ Created on Thu Sep 20 16:22:15 2025
 @author: nydir
 """
 
+# SAMPLE stress classifier -- to be built upon for increased accuracy and handling of more complex datasets
+
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -78,3 +80,4 @@ example = np.array([[95, 8.5, 37.2, 20]])  # HR, SC, Temp, Respiration
 example_scaled = scaler.transform(example)
 pred = model.predict(example_scaled)
 print("Predicted stress level:", pred[0])
+
