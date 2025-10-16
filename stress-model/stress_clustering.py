@@ -58,3 +58,5 @@ plt.show()
 df.to_csv("stress_clusters_labeled.csv", index=False)
 print("\n Labeled dataset saved as 'stress_clusters_labeled.csv'.")
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)

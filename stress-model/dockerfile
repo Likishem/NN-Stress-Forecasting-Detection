@@ -22,4 +22,5 @@ COPY stress_data.csv .
 EXPOSE 5000
 
 # Default command (change this if needed)
-CMD ["python", "stress-analysis"]
+CMD ["bash", "-c", "python stress_clustering.py && python stress_classifier2.py"]
+
