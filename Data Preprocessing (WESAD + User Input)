@@ -1,0 +1,21 @@
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
+# Load WESAD dataset (assuming CSV format)
+df = pd.read_csv('WESAD_S2.csv')
+
+# Select relevant features
+features = ['EDA', 'HR', 'ACC_x', 'ACC_y', 'ACC_z']
+df = df[features]
+
+# Normalize
+scaler = MinMaxScaler()
+df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=features)
+
+# Add timestamp index
+df_scaled['timestamp'] = pd.date_range(start='2025-01-01', periods=len(df_scaled), freq='S')
+df_scaled.set_index('timestamp', inplace=True)
+
+# Merge with user input (e.g., stress survey score)
+user_input = pd.read_csv('user_self_report.csv')  # columns: timestamp, stress_score
+df_combined = df_scaled.merge(user_input, on='timestamp', how='left')
