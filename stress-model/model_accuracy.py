@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 3 14:27:07 2025
-
-@author: nydir
-"""
 
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -79,3 +73,4 @@ print(classification_report(y_test, y_pred))
 
 df.to_csv("stress_clusters_labeled.csv", index=False)
 print("\n Labeled dataset saved as 'stress_clusters_labeled.csv'.")
+
