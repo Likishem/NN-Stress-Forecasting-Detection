@@ -22,4 +22,4 @@ COPY stress_data.csv .
 EXPOSE 5000
 
 # Default command (change this if needed)
-CMD ["python", "stress_classifier.py"]
+CMD ["python", "stress-analysis"]
