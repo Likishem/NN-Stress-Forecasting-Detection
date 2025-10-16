@@ -62,7 +62,6 @@ print("\n✅ Clustered data saved as 'stress_clusters_output.csv'.")
 # --- Flask App ---
 app = Flask(__name__)
 
-@app.route('/')
 def home():
     return """
     <h1>✅ Stress Classifier Running Successfully!</h1>
