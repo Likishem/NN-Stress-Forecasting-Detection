@@ -1,0 +1,26 @@
+from tensorflow.keras.layers import LSTM, TimeDistributed
+from sklearn.preprocessing import LabelEncoder
+import numpy as np
+
+# Encode stress levels
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
+
+# Create sequences
+def create_sequences(data, labels, window=60):
+    X_seq, y_seq = [], []
+    for i in range(len(data) - window):
+        X_seq.append(data[i:i+window])
+        y_seq.append(labels[i+window])
+    return np.array(X_seq), np.array(y_seq)
+
+X_lstm, y_lstm = create_sequences(X.values, y_encoded)
+
+# Build LSTM
+lstm_model = Sequential([
+    LSTM(64, input_shape=(X_lstm.shape[1], X_lstm.shape[2])),
+    Dense(3, activation='softmax')
+])
+
+lstm_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+lstm_model.fit(X_lstm, y_lstm, epochs=15, batch_size=32)
