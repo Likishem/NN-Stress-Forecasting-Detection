@@ -1,0 +1,70 @@
+from flask import Flask, render_template_string
+import pandas as pd
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    # Cluster distribution
+    # data
+    }
+
+    # Cluster means (original scale)
+    cluster_means = pd.DataFrame({
+      #cluster means data
+
+    # First few records
+    records = pd.DataFrame({
+      # recorded data 
+    })
+
+    # Cluster centers (standardized scale)
+    cluster_centers = [
+    # Cluster centers data
+    ]
+
+    html = """
+    <h1>Stress Clustering Results</h1>
+
+    <h2>Cluster Distribution</h2>
+    <ul>
+      {% for k, v in cluster_distribution.items() %}
+        <li><b>{{ k }}</b>: {{ v }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Cluster Means (Original Scale)</h2>
+    {{ cluster_means.to_html(classes='table table-striped', border=0) }}
+
+    <h2>First Few Records</h2>
+    {{ records.to_html(classes='table table-striped', border=0) }}
+
+    <h2>Cluster Centers (Standardized Scale)</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>heart_rate</th>
+            <th>eda</th>
+            <th>body_temp</th>
+            <th>bvp</th>
+        </tr>
+        {% for row in cluster_centers %}
+        <tr>
+            {% for val in row %}
+            <td>{{ val }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    """
+
+    return render_template_string(
+        html,
+        cluster_distribution=cluster_distribution,
+        cluster_means=cluster_means,
+        records=records,
+        cluster_centers=cluster_centers
+    )
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
