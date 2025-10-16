@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 16 14:02:25 2025
-
-@author: nydir
-"""
 
 # stress clustering (7866)
 
@@ -63,3 +57,4 @@ plt.show()
 
 df.to_csv("stress_clusters_labeled.csv", index=False)
 print("\n Labeled dataset saved as 'stress_clusters_labeled.csv'.")
+
