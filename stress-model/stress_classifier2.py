@@ -14,11 +14,8 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 1. Load the dataset
-# Replace 'stress_data.csv' with your actual file path
 df = pd.read_csv("stress_data.csv")
 
-# Check first few rows
 print("First few records:")
 print(df.head())
 
@@ -62,3 +59,4 @@ plt.show()
 
 df.to_csv("stress_clusters_output.csv", index=False)
 print("\nClustered data saved as 'stress_clusters_output.csv'.")
+
