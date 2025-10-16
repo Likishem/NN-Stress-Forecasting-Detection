@@ -1,21 +1,30 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout
 
-# Load WESAD dataset (assuming CSV format)
-df = pd.read_csv('WESAD_S2.csv')
+def train_nn_classifier(data_path):
+    df = pd.read_csv(data_path)
+    features = ['EDA', 'HR', 'ACC_x', 'ACC_y', 'ACC_z']
+    df = df[features]
 
-# Select relevant features
-features = ['EDA', 'HR', 'ACC_x', 'ACC_y', 'ACC_z']
-df = df[features]
+    scaler = MinMaxScaler()
+    df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=features)
 
-# Normalize
-scaler = MinMaxScaler()
-df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=features)
+    # Simulated stress scores (replace with real survey input)
+    df_scaled['stress_score'] = pd.cut(df_scaled['EDA'], bins=[0, 0.3, 0.6, 1.0], labels=[0, 1, 2])
 
-# Add timestamp index
-df_scaled['timestamp'] = pd.date_range(start='2025-01-01', periods=len(df_scaled), freq='S')
-df_scaled.set_index('timestamp', inplace=True)
+    X = df_scaled.drop(columns=['stress_score'])
+    y = df_scaled['stress_score'].astype(int)
 
-# Merge with user input (e.g., stress survey score)
-user_input = pd.read_csv('user_self_report.csv')  # columns: timestamp, stress_score
-df_combined = df_scaled.merge(user_input, on='timestamp', how='left')
+    model = Sequential([
+        Dense(64, activation='relu', input_shape=(X.shape[1],)),
+        Dropout(0.3),
+        Dense(32, activation='relu'),
+        Dense(3, activation='softmax')
+    ])
+
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model.fit(X, y, epochs=20, batch_size=32)
+
+    return model
