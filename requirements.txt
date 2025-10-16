@@ -1,4 +1,5 @@
-scikit-learn
+flask
+tensorflow
 numpy
 pandas
-flask
+scikit-learn

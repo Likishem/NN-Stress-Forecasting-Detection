@@ -8,21 +8,19 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of your project files
-COPY ACC.csv .
-COPY BVP.csv .
-COPY EDA.csv .
-COPY HR.csv .
-COPY IBI.csv .
-COPY TEMP.csv .
-COPY stress_classifier.py .
+COPY nip_sugestions.py .
+COPY preprocess.py .
+COPY therapist.py .
+COPY lstm_forecast.py .
+COPY nn_classifier.py .
 COPY app.py .
-
+COPY apprun.py .
 # Expose Flask’s default port
 EXPOSE 5000
 
 # Default command when the container runs
-CMD ["python", "app.py"]
+CMD ["python", "backend/backend/app.py"]
 
