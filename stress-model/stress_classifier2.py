@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 16 13:49:52 2025
-
-@author: nydir
-"""
-
 # stress classification
 
 import pandas as pd
@@ -59,4 +52,5 @@ plt.show()
 
 df.to_csv("stress_clusters_output.csv", index=False)
 print("\nClustered data saved as 'stress_clusters_output.csv'.")
+
 
