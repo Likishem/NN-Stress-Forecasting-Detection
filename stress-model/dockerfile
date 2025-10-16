@@ -1,0 +1,25 @@
+# Use lightweight Python image
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy and install dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+# Copy all Python scripts
+COPY model_accuracy.py .
+COPY stress_classifier2.py .
+COPY stress_clustering.py .
+
+# Copy CSV data files
+COPY stress_clusters_labeled.csv .
+COPY stress_clusters_output.csv .
+COPY stress_data.csv .
+
+# Expose Flask port (optional if you’re running an API)
+EXPOSE 5000
+
+# Default command (change this if needed)
+CMD ["python", "stress_classifier.py"]
