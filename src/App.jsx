@@ -11,3 +11,7 @@ export default function App() {
     </main>
   );
 }
+
+<div className="chatbot-container">
+  <Chatbot />
+</div>
