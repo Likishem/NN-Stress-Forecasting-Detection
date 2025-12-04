@@ -1,11 +1,66 @@
-/* frontend/src/App.css */
+/* Floating chatbot container */
 .chatbot-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 300px;
+  height: 400px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
 }
+
+/* Chat messages area */
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+/* Message bubbles */
+.message {
+  margin: 6px 0;
+  padding: 8px;
+  border-radius: 6px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+.message.user {
+  background: #cce5ff;
+  align-self: flex-end;
+  text-align: right;
+}
+.message.bot {
+  background: #f0f0f0;
+  align-self: flex-start;
+  text-align: left;
+}
+
+/* Input area */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 8px;
+  font-size: 14px;
+}
+.chat-input button {
+  border: none;
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.chat-input button:hover {
+  background: #0056b3;
+}
+
